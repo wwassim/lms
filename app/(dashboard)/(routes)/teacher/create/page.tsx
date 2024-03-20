@@ -86,5 +86,5 @@ const CreatePage = () => {
             </div>
         </div>
     );
-                        }
+                        };
 export default CreatePage;
