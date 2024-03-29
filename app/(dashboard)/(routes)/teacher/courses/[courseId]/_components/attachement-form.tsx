@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { FileUpload } from "@/components/file-upload";
 
 interface AttachmentFormProps {
-  initialData: Course & { attachements: Attachement[] };
+  initialData: Course & { attachments: Attachement[] };
   courseId: string;
 }
 
@@ -72,14 +72,14 @@ export const AttachmentForm = ({
       </div>
       {!isEditing && (
         <>
-          {initialData.attachements.length === 0 && (
+          {initialData.attachments.length === 0 && (
             <p className="text-sm mt-2 text-slate-500 italic">
               No Attachement yet
             </p>
           )}
-          {initialData.attachements.length > 0 && (
+          {initialData.attachments.length > 0 && (
             <div className="space-y-2">
-              {initialData.attachements.map((attchment) => (
+              {initialData.attachments.map((attchment) => (
                 <div className="flex items-center p-3 w-full bg-sky-100 border-sky-200 text-sky-700 rounded-md">
                   <File className="h-4 w-4 mr-2 flex-shrink-0" />
                   <p className="text-xs line-clamp-1">{attchment.name}</p>
