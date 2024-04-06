@@ -8,19 +8,13 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ConfirmModal } from "@/components/modals/confirm-modal";
 
-interface ChapterActionProps {
+interface ActionProps {
   disabled: boolean;
   courseId: string;
-  chapterId: string;
   isPublished: boolean;
 }
 
-const ChapterActions = ({
-  disabled,
-  courseId,
-  chapterId,
-  isPublished,
-}: ChapterActionProps) => {
+const Actions = ({ disabled, courseId, isPublished }: ActionProps) => {
   const router = useRouter();
   const [isLoading, setIsloading] = useState(false);
 
@@ -29,14 +23,10 @@ const ChapterActions = ({
       setIsloading(true);
 
       if (isPublished) {
-        await axios.patch(
-          `/api/courses/${courseId}/chapters/${chapterId}/unpublish`
-        );
+        await axios.patch(`/api/courses/${courseId}/unpublish`);
         toast.success("Chapter unpublished");
       } else {
-        await axios.patch(
-          `/api/courses/${courseId}/chapters/${chapterId}/publish`
-        );
+        await axios.patch(`/api/courses/${courseId}/publish`);
         toast.success("Chapter published");
       }
       router.refresh();
@@ -53,7 +43,7 @@ const ChapterActions = ({
       await axios.delete(`/api/courses/${courseId}`);
       toast.success("Chpater deleted");
       router.refresh();
-      router.push(`teacher/courses/${courseId}`);
+      router.push(`teacher/courses`);
     } catch {
       toast.error("Something went wrong");
     } finally {
@@ -80,4 +70,4 @@ const ChapterActions = ({
   );
 };
 
-export default ChapterActions;
+export default Actions;
