@@ -5,7 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextIndex"]
 }
 
 datasource db {
@@ -30,9 +31,10 @@ model Course {
 
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
-  Purchase  Purchase[]
+  purchase  Purchase[]
 
   @@index([categoryId])
+  @@fulltext([title])
 }
 
 model Category {

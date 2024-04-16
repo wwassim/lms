@@ -36,19 +36,23 @@ export async function PATCH(
             chapterId: params.chapterId
         }
     })
+    console.log(chapter ,muxData )
+
      if (!chapter || !muxData || !chapter.title || !chapter.description || !chapter.videoUrl) {
       return new NextResponse("Missing required fields", { status: 400 });
     }
 
     const publishedChapter = await db.chapter.update( {
+      
         where:{
             id: params.chapterId,
-            courseId: params.chapterId
+            courseId: params.courseId
         },
         data:{
             isPublished:true
         }
     })
+    
          return NextResponse.json(publishedChapter);
     } catch (error) {
          console.log("[CHAPTER_PUBLISH]", error);

@@ -24,6 +24,7 @@ const ChapterActions = ({
   const router = useRouter();
   const [isLoading, setIsloading] = useState(false);
 
+  console.log(courseId, chapterId);
   const onClick = async () => {
     try {
       setIsloading(true);

@@ -41,7 +41,6 @@ const ChapterVideoForm = ({
       toast.error("something went wrong");
     }
   };
-
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
@@ -68,16 +67,17 @@ const ChapterVideoForm = ({
             <Video className="h-10 w-10 text-slate-500" />
           </div>
         ) : (
-          <div className="relative aspect-video mt-2">
-            <MuxPlayer playbackId={initialData?.muxData?.playBackId || ""} />
-          </div>
+          <>
+            <div className="relative aspect-video mt-2">
+              <MuxPlayer playbackId={initialData?.muxData?.playBackId || ""} />
+            </div>
+          </>
         ))}
       {isEditing && (
         <div>
           <FileUpload
             endpoint="chapterVideo"
             onChange={(url) => {
-              console.log(url);
               if (url) {
                 onSubmit({ videoUrl: url });
               }

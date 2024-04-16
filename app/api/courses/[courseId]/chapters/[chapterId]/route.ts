@@ -21,7 +21,6 @@ export async function DELETE(req: Request,{params}:{params:{courseId: string;cha
         userId,
       }
     });
-
     if (!ownCourse) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
@@ -84,7 +83,7 @@ export async function DELETE(req: Request,{params}:{params:{courseId: string;cha
 }
 
 
-export async function PATCH(req:Request,{params}:{params:{courseId: string;chapterId: string}}){
+export async function PATCH(req:Request,{params}:{params:{courseId: string ; chapterId: string}}){
     try {
         
         const {userId} = auth()
@@ -114,7 +113,6 @@ export async function PATCH(req:Request,{params}:{params:{courseId: string;chapt
                 ...values
             }
         })
-
           if (values.videoUrl) {
 
            const existingMuxData = await db.muxData.findFirst({
@@ -123,7 +121,7 @@ export async function PATCH(req:Request,{params}:{params:{courseId: string;chapt
                 }
             });
         
-         
+        console.log(existingMuxData) 
         if(existingMuxData){
             await Video.Assets.del(existingMuxData.assetId);
             await db.muxData.delete({
