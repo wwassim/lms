@@ -30,6 +30,33 @@ export const VideoPlayer = ({
   title,
 }: VideoPlayerProps) => {
   const [isReady, setReady] = useState(false);
+  const router = useRouter();
+
+  const onEnd = async () => {
+    try {
+      if (completeOnEnd) {
+        await axios.put(
+          `/api/courses/${courseId}/chapters/${chapterId}/progress`,
+          {
+            isCompleted: true,
+          }
+        );
+      }
+
+      if (!nextChapterId) {
+        toast.success("Congrats you complete the course");
+      }
+
+      toast.success("Progress updated");
+      router.refresh();
+
+      if (!nextChapterId) {
+        router.push(`/courses/${courseId}/chapters/${nextChapterId}`);
+      }
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
+  };
   return (
     <div className="relative aspect-video">
       {!isReady && !isLocked && (
@@ -48,13 +75,10 @@ export const VideoPlayer = ({
           title={title}
           className={cn(!isReady && "hidden")}
           onCanPlay={() => setReady(true)}
-          onEnded={() => {}}
+          onEnded={onEnd}
           autoPlay
           playbackId={playbackId}
         />
-        // <MuxPlayer
-        //   playbackId={"ZV3DgmwYtHrBZIzj1n02uQYrwUCC44me1CMbuFwLrQlM"}
-        // />
       )}
     </div>
   );
