@@ -20,7 +20,6 @@ interface AttachmentFormProps {
 const formSchema = z.object({
   url: z.string().min(1),
 });
-
 export const AttachmentForm = ({
   initialData,
   courseId,
@@ -79,8 +78,8 @@ export const AttachmentForm = ({
           )}
           {initialData.attachments.length > 0 && (
             <div className="space-y-2">
-              {initialData.attachments.map((attchment) => (
-                <div className="flex items-center p-3 w-full bg-sky-100 border-sky-200 text-sky-700 rounded-md">
+              {initialData.attachments.map((attchment,i) => (
+                <div key={i} className="flex items-center p-3 w-full bg-sky-100 border-sky-200 text-sky-700 rounded-md">
                   <File className="h-4 w-4 mr-2 flex-shrink-0" />
                   <p className="text-xs line-clamp-1">{attchment.name}</p>
                   {deletingId === attchment.id && (
